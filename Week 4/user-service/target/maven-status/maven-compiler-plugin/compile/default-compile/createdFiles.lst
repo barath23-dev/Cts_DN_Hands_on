@@ -1,0 +1,4 @@
+com\cognizant\userservice\entity\User.class
+com\cognizant\userservice\controller\UserController.class
+com\cognizant\userservice\UserServiceApplication.class
+com\cognizant\userservice\repository\UserRepository.class
