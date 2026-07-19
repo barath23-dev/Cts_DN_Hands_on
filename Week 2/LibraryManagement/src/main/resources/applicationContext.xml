@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/ his/aop"
+       xmlns:aspectj="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- Component scanning for annotation-based exercises -->
+    <context:component-scan base-package="com.library" />
+
+    <!-- Enable AspectJ auto proxy for aspects defined with @Aspect -->
+    <aop:aspectj-autoproxy />
+
+    <!-- XML-based Repository definition -->
+    <bean id="xmlBookRepository" class="com.library.repository.BookRepository" />
+
+    <!-- XML-based Constructor Injection -->
+    <bean id="bookServiceConstructor" class="com.library.service.BookService">
+        <constructor-arg ref="xmlBookRepository" />
+    </bean>
+
+    <!-- XML-based Setter Injection -->
+    <bean id="bookServiceSetter" class="com.library.service.BookService">
+        <property name="bookRepository" ref="xmlBookRepository" />
+    </bean>
+
+    <!-- XML-based Aspect definition -->
+    <bean id="xmlLoggingAspect" class="com.library.aspect.LoggingAspect" />
+
+</beans>

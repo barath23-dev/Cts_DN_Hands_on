@@ -1,0 +1,84 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: greet-route
+          uri: lb://greet-service
+          predicates:
+            - Path=/greet-service/**
+          filters:
+            - RewritePath=/greet-service/(?<remaining>.*), /${remaining}
+        - id: account-route
+          uri: lb://account-service
+          predicates:
+            - Path=/account-service/**
+          filters:
+            - RewritePath=/account-service/(?<remaining>.*), /${remaining}
+        - id: loan-route
+          uri: lb://loan-service
+          predicates:
+            - Path=/loan-service/**
+          filters:
+            - RewritePath=/loan-service/(?<remaining>.*), /${remaining}
+        - id: user-route
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - RewritePath=/user-service/(?<remaining>.*), /${remaining}
+        - id: order-route
+          uri: lb://order-service
+          predicates:
+            - Path=/order-service/**
+          filters:
+            - RewritePath=/order-service/(?<remaining>.*), /${remaining}
+        - id: product-route
+          uri: lb://product-service
+          predicates:
+            - Path=/product-service/**
+          filters:
+            - RewritePath=/product-service/(?<remaining>.*), /${remaining}
+        - id: inventory-route
+          uri: lb://inventory-service
+          predicates:
+            - Path=/inventory-service/**
+          filters:
+            - RewritePath=/inventory-service/(?<remaining>.*), /${remaining}
+        - id: customer-route
+          uri: lb://customer-service
+          predicates:
+            - Path=/customer-service/**
+          filters:
+            - RewritePath=/customer-service/(?<remaining>.*), /${remaining}
+        - id: billing-route
+          uri: lb://billing-service
+          predicates:
+            - Path=/billing-service/**
+          filters:
+            - RewritePath=/billing-service/(?<remaining>.*), /${remaining}
+        - id: payment-route
+          uri: lb://payment-service
+          predicates:
+            - Path=/payment-service/**
+          filters:
+            - RewritePath=/payment-service/(?<remaining>.*), /${remaining}
+        - id: auth-route
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth-service/**
+          filters:
+            - RewritePath=/auth-service/(?<remaining>.*), /${remaining}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
