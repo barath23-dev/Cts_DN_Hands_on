@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>Welcome to {{ portalName }}</h1>
+  <p>Manage your academic journey, browse and enroll in courses, and track your learning progress all in one unified portal.</p>
+  
+  <div style="margin-top: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+    <button class="btn-primary" [disabled]="!isPortalActive" (click)="onEnrollClick()">Enroll Now</button>
+    <div style="flex-grow: 1; max-width: 300px;">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search courses..." style="width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem; border: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.05); color: white; box-sizing: border-box;" />
+    </div>
+  </div>
+
+  @if (message) {
+    <div class="card" style="margin-top: 1.5rem; border-left: 4px solid var(--success-color); background: rgba(16, 185, 129, 0.1); padding: 1rem;">
+      <p style="margin: 0; color: white; font-weight: 500;">{{ message }}</p>
+    </div>
+  }
+
+  @if (searchTerm) {
+    <p style="margin-top: 1rem;">Searching for: <strong>{{ searchTerm }}</strong></p>
+  }
+
+  <div class="grid grid-3" style="margin-top: 2.5rem;">
+    <div class="card">
+      <h3 style="color: var(--text-muted); font-size: 1rem; text-transform: uppercase; margin-bottom: 0.25rem; font-weight: 600;">Courses Available</h3>
+      <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary-color);">{{ coursesCount }}</div>
+    </div>
+    <div class="card">
+      <h3 style="color: var(--text-muted); font-size: 1rem; text-transform: uppercase; margin-bottom: 0.25rem; font-weight: 600;">Enrolled</h3>
+      <div style="font-size: 2.5rem; font-weight: 700; color: var(--success-color);">3</div>
+    </div>
+    <div class="card">
+      <h3 style="color: var(--text-muted); font-size: 1rem; text-transform: uppercase; margin-bottom: 0.25rem; font-weight: 600;">GPA</h3>
+      <div style="font-size: 2.5rem; font-weight: 700; color: var(--warning-color);">3.8</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Student Profile</h2>
+  
+  <div class="card" style="margin-top: 1.5rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(20, 27, 45, 0.8) 100%);">
+    <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary-color); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: white;">
+      AJ
+    </div>
+    <div>
+      <h3 style="margin: 0; font-size: 1.5rem;">{{ student.name }}</h3>
+      <p style="margin: 0.25rem 0 0 0; font-size: 0.95rem;">Major: <strong>{{ student.major }}</strong></p>
+      <p style="margin: 0.25rem 0 0 0; font-size: 0.95rem; color: var(--text-muted);">Email: {{ student.email }}</p>
+    </div>
+    <div style="margin-left: auto; text-align: right;">
+      <span style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); display: block;">Current GPA</span>
+      <strong style="font-size: 2rem; color: var(--warning-color);">{{ student.gpa }}</strong>
+    </div>
+  </div>
+
+  <app-notification></app-notification>
+
+  <h3 style="margin-top: 3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">Your Enrolled Courses</h3>
+
+  <div class="grid grid-3" style="margin-top: 1.5rem;">
+    @for (c of (enrolledCourses$ | async); track c.id) {
+      <app-course-card [course]="c" [isEnrolled]="true" (enrollRequested)="onUnenroll($event)"></app-course-card>
+    } @empty {
+      <div class="card" style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: transparent; border-style: dashed;">
+        <p style="margin: 0;">You have not enrolled in any courses yet.</p>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<div class="card" style="margin-top: 1.5rem; background: rgba(99, 102, 241, 0.05); border: 1px dashed var(--primary-color);">
+  <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Quick Stats Summary (Reactive Async)</h4>
+  <p style="margin: 0; font-size: 0.9rem;">
+    Total available courses: <strong>{{ totalCourses$ | async }}</strong> | Enrolled courses: <strong>{{ enrolledCoursesCount$ | async }}</strong>
+  </p>
+</div>

@@ -1,0 +1,25 @@
+.card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  max-height: 180px;
+  border-left: 4px solid var(--border-color);
+  cursor: pointer;
+}
+
+.card.expanded {
+  max-height: 400px;
+}
+
+.card--enrolled {
+  background: rgba(16, 185, 129, 0.08) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+.card--full {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+}
+
+.badge-container {
+  display: inline-flex;
+  margin-top: 0.5rem;
+}

@@ -1,0 +1,25 @@
+angular.json: Workspace-wide configuration for the Angular CLI build tools, schematic defaults, and project targets.
+tsconfig.json: Root TypeScript compiler configuration containing global compiler options and workspace settings.
+tsconfig.app.json: Application-specific TypeScript configuration inheriting from the root tsconfig for compiling the main application.
+package.json: Project metadata, script definitions, and dependencies required by npm to manage the project.
+src/main.ts: Application entry point that bootstraps the standalone Angular application.
+src/app/app.config.ts: Configures global dependency injection providers and modules for the standalone application (e.g. routing).
+src/app/app.component.ts: Root component of the application defining the selector, template, and logic for the main shell.
+src/index.html: The main HTML host page that loads the Angular application and contains the root element <app-root>.
+
+Compiled Application Code File: main-*.js inside dist/student-course-portal/browser/ (e.g. main-PHR3VZJU.js).
+Budgets Configuration: Under production builds, the budget configuration defines size limits for bundle outputs. For the initial bundle, 'maximumWarning' is set to 500kB (warning printed if exceeded) and 'maximumError' is set to 1MB (build fails if exceeded). For any individual component stylesheet, 'maximumWarning' is 4kB and 'maximumError' is 8kB. These budgets ensure the application payload size is monitored and kept lightweight for performance.
+
+Difference between FormGroup value and getRawValue():
+- form.value: Returns an object containing the values of all enabled FormControls in the FormGroup. It excludes any disabled FormControls.
+- form.getRawValue(): Returns an object containing the values of all FormControls in the FormGroup, regardless of whether they are enabled or disabled.
+
+Component-Level Providers (Hierarchical DI):
+- Declaring a service inside a component's 'providers' array (e.g. providers: [NotificationService]) registers the service with that specific component's ElementInjector.
+- This creates a new, separate instance of the service scoped to that component. Any sibling or parent components will not share this instance, and children of this component will inherit this scoped instance. This allows for isolating state within component sub-trees.
+
+RxJS Operators:
+- Why 'tap' is preferred over side effects inside 'map':
+  'map' is meant to transform the items emitted by an Observable stream (it should be a pure function). 'tap' is specifically designed to perform side effects (like logging, analytics, caching) without altering the stream or modifying the emitted items. Mixing side effects inside 'map' violates functional programming principles and makes the code harder to debug.
+- Why 'switchMap' cancels previous inner Observables:
+  When a new source value arrives, 'switchMap' immediately unsubscribes from (cancels) the active inner Observable and starts a new inner Observable. This is essential for type-ahead searches or dependent HTTP requests, as it prevents outdated API responses from arriving out of order and overriding newer requests, saving network bandwidth.

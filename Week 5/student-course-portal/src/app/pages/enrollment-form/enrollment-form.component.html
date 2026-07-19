@@ -1,0 +1,75 @@
+<div class="container" style="max-width: 600px;">
+  <h2>Enrollment Request</h2>
+  <p>Fill out the form below to request enrollment in a course.</p>
+
+  @if (submitted) {
+    <div class="card" style="border-left: 4px solid var(--success-color); background: rgba(16, 185, 129, 0.08); margin-bottom: 2rem; padding: 1.5rem;">
+      <h3 style="color: var(--success-color); margin-bottom: 0.5rem;">Success!</h3>
+      <p style="margin: 0; color: white;">Enrollment request submitted successfully!</p>
+      <button class="btn-secondary" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.85rem;" (click)="submitted = false">Submit Another Request</button>
+    </div>
+  } @else {
+    <div class="card">
+      <form #enrollForm="ngForm" (ngSubmit)="onSubmit(enrollForm)">
+        <div class="form-group">
+          <label for="studentName">Student Name</label>
+          <input type="text" id="studentName" name="studentName" [(ngModel)]="studentName" required minlength="3" #nameCtrl="ngModel" placeholder="Enter your full name" />
+          @if (nameCtrl.touched && nameCtrl.errors) {
+            @if (nameCtrl.errors['required']) {
+              <span class="error-text">Name is required.</span>
+            }
+            @if (nameCtrl.errors['minlength']) {
+              <span class="error-text">Name must be at least 3 characters.</span>
+            }
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="studentEmail">Student Email</label>
+          <input type="email" id="studentEmail" name="studentEmail" [(ngModel)]="studentEmail" required email #emailCtrl="ngModel" placeholder="Enter your email address" />
+          @if (emailCtrl.touched && emailCtrl.errors) {
+            @if (emailCtrl.errors['required']) {
+              <span class="error-text">Email is required.</span>
+            }
+            @if (emailCtrl.errors['email']) {
+              <span class="error-text">Invalid email address.</span>
+            }
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="courseId">Course ID</label>
+          <input type="number" id="courseId" name="courseId" [(ngModel)]="courseId" required #courseIdCtrl="ngModel" placeholder="Enter course ID" />
+          @if (courseIdCtrl.touched && courseIdCtrl.errors) {
+            @if (courseIdCtrl.errors['required']) {
+              <span class="error-text">Course ID is required.</span>
+            }
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="preferredSemester">Preferred Semester</label>
+          <select id="preferredSemester" name="preferredSemester" [(ngModel)]="preferredSemester" required #semCtrl="ngModel">
+            <option value="Odd">Odd</option>
+            <option value="Even">Even</option>
+          </select>
+        </div>
+
+        <div class="form-group checkbox-group" style="margin-bottom: 2rem;">
+          <input type="checkbox" id="agreeToTerms" name="agreeToTerms" [(ngModel)]="agreeToTerms" required #termsCtrl="ngModel" />
+          <label for="agreeToTerms">I agree to the terms and conditions</label>
+          @if (termsCtrl.touched && termsCtrl.errors) {
+            @if (termsCtrl.errors['required']) {
+              <span class="error-text" style="display: block; width: 100%;">You must agree to the terms.</span>
+            }
+          }
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+          <button type="button" class="btn-secondary" (click)="enrollForm.resetForm()">Reset</button>
+          <button type="submit" class="btn-primary" [disabled]="enrollForm.invalid">Submit</button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

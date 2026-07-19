@@ -1,0 +1,52 @@
+<div class="card" [ngClass]="cardClasses" [ngStyle]="{
+  'border-left-color': course.gradeStatus === 'passed' ? 'var(--success-color)' : 
+                       course.gradeStatus === 'failed' ? 'var(--danger-color)' : 
+                       'var(--warning-color)'
+}" appHighlight="rgba(99, 102, 241, 0.08)">
+  
+  <div style="display: flex; justify-content: space-between; align-items: start;">
+    <div>
+      <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">{{ course.code }}</span>
+      <h3 style="margin-top: 0.25rem; font-size: 1.25rem; margin-bottom: 0;">{{ course.name }}</h3>
+      
+      @if (course.gradeStatus) {
+        <div class="badge-container">
+          @switch (course.gradeStatus) {
+            @case ('passed') {
+              <span class="badge badge-passed">Passed</span>
+            }
+            @case ('failed') {
+              <span class="badge badge-failed">Failed</span>
+            }
+            @default {
+              <span class="badge badge-pending">Pending</span>
+            }
+          }
+        </div>
+      }
+    </div>
+    
+    <div style="text-align: right;">
+      <span style="font-size: 0.85rem; font-weight: 600; color: var(--primary-color);">{{ course.credits | creditLabel }}</span>
+    </div>
+  </div>
+
+  <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+    <span style="font-size: 0.85rem; color: var(--text-muted);">ID: {{ course.id }}</span>
+    <div style="display: flex; gap: 0.5rem;">
+      <button class="btn-secondary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;" (click)="toggleExpand($event)">
+        {{ isExpanded ? 'Hide Details' : 'Show Details' }}
+      </button>
+      <button class="btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;" (click)="onEnrollClick($event)">
+        {{ enrolledStatus ? 'Unenroll' : 'Enroll' }}
+      </button>
+    </div>
+  </div>
+
+  @if (isExpanded) {
+    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); font-size: 0.9rem; animation: fadeIn 0.2s ease-out;">
+      <p style="margin: 0 0 0.5rem 0; color: var(--text-muted);"><strong>Course Description:</strong> An in-depth study of the core concepts, practical techniques, and major paradigms associated with {{ course.name }}.</p>
+      <p style="margin: 0; color: var(--text-muted);"><strong>Current Status:</strong> <span style="text-transform: capitalize; color: var(--text-color); font-weight: 500;">{{ course.gradeStatus || 'N/A' }}</span></p>
+    </div>
+  }
+</div>
